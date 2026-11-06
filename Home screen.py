@@ -1,10 +1,22 @@
-#Arcade
-#Alexandre Rogado, 137333
+"""
+Menu Principal do Projeto Final 
 
-# Para submeter alterações
-# git add .
-# git commit -m "mensagem curta"
-# git push
+@description: menu inicial do projeto final da unidade curricular de Fundamentos de programação
+@version: 0.0.1v
+@author: Alexandre Rogado, nº137333 - Martim Soares, nº148608 - Rúben Gaspar, nº148629
+"""
 
-# Para atualizar com as alterações
-# git pull
+from colorama import Fore, Back, Style, init
+import random
+import shutil
+
+
+init(autoreset=True)
+
+
+
+def menu():
+    # A mensagem correspondente á escolha do utilizador
+    print("Escolha um utlizador existente")
+    print("Crie um novo utilizador.")
+
