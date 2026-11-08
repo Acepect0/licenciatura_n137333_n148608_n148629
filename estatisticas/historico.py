@@ -4,23 +4,6 @@ Regista cada partida (jogo, jogador, data, pontuação)
 e premite consultar todas as partidas ou filtar por jogo / jogador.
 """
 
-import csv
-import os
-from datetime import datetime
-from pyclbr import Class
-
-""" estas 3 linhas de codigo servem para: 
-7. Trabalhar com ficheiros CSV (ficheiro que armazenam dados organizados em tabelas)
-8. Interage com o sistema operativo (verifica se um ficheiro existe, cria ficheiros, etc.)
-9. Trabalha com as datas e horas
-"""
-
-
-# Raiz do projeto
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# A linha 19 serve para obter o caminho da pasta onde está guardado o ficheiro Python atual.
-
 
 class Partida:
     
@@ -52,3 +35,6 @@ e os armazena como atributos da instância.
 Além disso, existem métodos get_jogo, get_jogador, get_pontuacao e get_data que 
 retornam os valores dos atributos correspondentes.  
 """
+
+
+#Essencial: filtar por jogo e depois por partidas
