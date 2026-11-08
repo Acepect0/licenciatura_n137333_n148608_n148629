@@ -5,7 +5,7 @@ largurametade = int((largura - 16)- 2) #Subtrai a largura completa por 16, o nú
 tracos = "—" * largurametade #Cria a string de traços
 
 def jogadores():
-    # A mensagem correspondente á escolha do utilizador
+    # A mensagem correspondente à escolha do utilizador
     print(Fore.LIGHTCYAN_EX + f"{"——"}│ UTILIZADORES │{tracos}")
 
     print(Fore.GREEN + "1 - Escolha um utlizador existente")
