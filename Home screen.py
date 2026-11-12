@@ -17,5 +17,4 @@ init(autoreset=True)
 def menu():
     # A mensagem correspondente á escolha do utilizador
     print("Escolha um utlizador existente")
-    print("Crie um novo utilizador.")
-
+    print("Crie um novo utilizador")
