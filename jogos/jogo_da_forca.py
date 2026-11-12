@@ -2,6 +2,7 @@ import os #Biblioteca "os": permite trabalhar com ficheiros e diretórios do sis
 import unicodedata #Biblioteca "unicodedata": permite trabalhar com caracteres especiais, como acentos e cedilhas
 import random #Biblioteca "random": permite gerar números aleatórios, ou escolher aleatoriamente elementos de uma lista
 import shutil #Biblioteca "shutil": vamos usar somente para obter a largura da janela do terminal
+import subprocess #Biblioteca "subprocess": 
 
 ###  FUNÇÕES  ###
 #FUNÇÃO QUE SORTEIA UMA PALAVRA ALEATÓRIA DO FICHEIRO COM AS PALAVRAS
@@ -10,9 +11,9 @@ def sortear_palavra():
     caminho_txt = os.path.join(pasta, 'jogodaforca_palavras.txt') #Junta o diretório gerado pela variável anterior com o nome do ficheiro das palavras
     #Desta forma, o programa vai procurar o ficheiro das palavras na mesma pasta onde o programa está a ser corrido, impedindo erros quando o ficheiro é corrido em computadores diferentes, que podem ter diretórios diferentes
     
-    with open(caminho_txt, "r", encoding="utf-8") as palavrastodas: #Abre o ficheiro (localização, modo de leitura, forma de interpretação dos caracteres) E vai fechá-lo assim que a execução do código desta parte terminar
-        palavras_com_n = palavrastodas.readlines() #Readlines vai ler o ficheiro todo e devolver uma lista em que cada elemento é uma linha do ficheiro, só que imprime com notações de \n no final de cada elemento
-
+    with open(caminho_txt, "r", encoding="utf-8") as batman: #Abre o ficheiro (localização, modo de leitura, forma de interpretação dos caracteres) E vai fechá-lo assim que a execução do código desta parte terminar
+        palavras_com_n = batman.readlines() #Readlines vai ler o ficheiro todo e devolver uma lista em que cada elemento é uma linha do ficheiro, só que imprime com notações de \n no final de cada elemento
+        
     palavras_limpas = [] #Cria uma lista vazia para depois guardar as palavras limpas, sem /n e espaços
     for linha in palavras_com_n:       #Percorre cada linha da lista gerada pelo readlines
         linha = linha.strip()          #Strip vai remover todos os espaços em branco, tabulações (\t) e quebras de linha (\n)
@@ -44,34 +45,39 @@ def mostrar_palavra(palavra_sorteada, letras_certas):
             espacos = espacos + "_ "
     return espacos                                  
 
+#FUNÇÃO GERADORA DE TÍTULOS DECOATIVOS
+def titulos(titulo_central, decoracao):
+    largura = shutil.get_terminal_size().columns
+    repeticoes = (largura - len(titulo_central)) // (2 * len(decoracao)) 
+    lados = decoracao * repeticoes 
+    
+    return (f"{lados}{titulo_central}{lados}")
+
+#FUNÇÃO LIMPADORA
+def limpar_consola():
+    if os.name == "nt": #Para Windows
+        subprocess.run("cls", shell=True) #shell=True: pede ao Python para escrever o comando na consola, como se fosse à mão. É preciso porque o "cls" é um comando que só a própria consola do Windows conhece
+    else: #Para Mac ou Linux
+        subprocess.run(["clear"])
+
 
 ###  ECRÃ INICIAL ###
-if os.name  == "nt": #Se o sistema operativo for Windows, limpa o ecrã com cls
-        os.system("cls")            
-else:  #Se não for Windows, limpa o ecrã com clear
-     os.system("clear")
+limpar_consola()
 
-#Título
-largura = shutil.get_terminal_size().columns
-largurametade = int(((largura - 17) / 4))
-tracos = "⫘⫘" * largurametade
-print(f"{tracos}│ JOGO DA FORCA │{tracos}")
+print(titulos("| JOGO DA FORCA │", "⫘⫘"))
 
 print("")
 print("Bem-vindo(a) ao Jogo da Forca!")
 print("")
 print("O objetivo do jogo é acertar a palavra secreta, sabendo apenas o número de letras que ela tem.")
 print("Para isso, podes tentar adivinhar uma letra de cada vez, mas só podes errar até 10 vezes.") 
-print("Se, a meio da ronda, quiseres arriscar numa só a palavra inteira, podes fazê-lo escrevendo o comando @[o teu palpite]. No entanto, se o teu palpite estiver errado, perdes o jogo.")
+print("Se, a meio da ronda, quiseres arriscar numa só a palavra inteira, podes fazê-lo escrevendo «@» e logo de seguida o teu palpite. No entanto, se o teu palpite estiver errado, perdes imediatamente a ronda.")
 print("")
 print("Boa sorte!")
 print("")
 
 #"Botão de COMEÇAR"
-largura = shutil.get_terminal_size().columns
-largurametade = int(((largura - 7) / 2))
-tracos = " " * largurametade
-input(f"{tracos}COMEÇAR{tracos}")
+input(titulos("Prima ENTER para começar..."," "))
 
 
 ###  PROGRAMA PRINCIPAL  ###
@@ -80,7 +86,7 @@ while True: #Mantém o jogo a correr até o jogador decidir sair
     palavra_sorteada = sortear_palavra()
 
     #VARIÁVEIS DO JOGO
-    MAXIMO_DE_ERROS = 10           #Número máximo de erros 
+    MAXIMO_DE_ERROS = 9            #Número máximo de erros 
     erros = -1                     #Quantos erros o jogador já cometeu
     letras_certas = []             #Letras que o jogador já acertou
     letras_usadas = []             #Todas as letras já tentadas (certas e erradas)
@@ -91,24 +97,15 @@ while True: #Mantém o jogo a correr até o jogador decidir sair
     #CICLO PRINCIPAL DO JOGO
 
     while erros < MAXIMO_DE_ERROS and not venceu:   #Repete enquanto o jogador não perdeu nem ganhou
-        if os.name  == "nt":
-            os.system("cls")            
-        else:
-            os.system("clear")
+        limpar_consola()
 
         #CABEÇALHO DO JOGO
-        largura = shutil.get_terminal_size().columns 
-        largurametade = int(((largura - 17)/ 4)) 
-        tracos = "⫘⫘" * largurametade
-        print(f"{tracos}│ JOGO DA FORCA │{tracos}")
+        print(titulos("| JOGO DA FORCA │", "⫘⫘"))
 
-        print("╭———————————————╮")
-        print(f"|  Erros: {erros + 1}/{MAXIMO_DE_ERROS}  |")
-        print("╰———————————————╯")
-        if erros == 10:
-            print("╭———————————————╮")
-            print(f"| Erros: {erros + 1}/{MAXIMO_DE_ERROS}  |")
-            print("╰———————————————╯")
+        print("╭—————————————╮")
+        print(f"| Erros: {erros + 1}/10 |")
+        print("╰—————————————╯")
+        
         
         print(f"A palavra tem {len(palavra_sorteada)} letras.")
         print("")
@@ -117,106 +114,67 @@ while True: #Mantém o jogo a correr até o jogador decidir sair
         print(f"Letras usadas: {letras_usadas}")
         print(mensagem)  #Aviso da jogada anterior 
         
-        entrada = input("Indica uma letra (ou @ para arriscar): ").lower()
+        entrada = sem_acentos(input("Indica uma letra (ou @palavra para arriscar): ").lower())
 
-        if entrada.startswith("@"): #Se o jogador iniciar com @
-            palpite = entrada.replace("@", "", 1) #Remove o @ do início da palavra
+        if entrada == "":
+                mensagem = "➤ Tens de fornecer uma letra OU arriscar."
+
+        elif entrada.startswith("@"):
+            palpite = (entrada.replace("@","",1)).replace(" ","") #Remove espaços caso o jogador escreva "@ palavra" ou "@pal avra"
 
             if palpite == "":
-                mensagem = "➤ Escreve o teu palpite depois do @ ou tenta apenas uma letra."
+                mensagem = "➤ Hmmm... Escreve o teu palpite OU tenta novamente uma letra. "
 
-            elif sem_acentos(palpite) == sem_acentos(palavra_sorteada):
+            elif palpite == sem_acentos(palavra_sorteada):
                 venceu = True
-
+            
             else:
                 erros = MAXIMO_DE_ERROS
+          
+        # VERIFICAÇÃO DA LETRA
+        elif len(entrada) != 1 or not entrada.isalpha(): #isalpha: vê se todos os caractéres são letras do alfabeto, incluindo letras com acento
+            mensagem = "➤ Escreve apenas UMA letra. Não escrevas números, símbolos ou palavras."
 
-        else: #Se o jogador não escrever @, verifica uma letra normal
+        elif entrada in letras_usadas:
+            mensagem = "➤ Já tentaste essa letra..."
 
-            tentativa = sem_acentos(entrada)
+        else:
+            letras_usadas.append(entrada)
 
-            # VERIFICAÇÃO DA ENTRADA
+            if entrada in sem_acentos(palavra_sorteada):
+                letras_certas.append(entrada)
+                mensagem = "✔ CERTO!"
 
-            if len(tentativa) != 1 or not tentativa.isalpha(): #isalpha: vê se todos os caractéres são letras do alfabeto, incluindo letras com acento
-                mensagem = "➤ Escreve apenas UMA letra. Não escrevas números, símbolos ou palavras."
-
-            elif tentativa in letras_usadas:
-                mensagem = "➤ Já tentaste essa letra..."
+                if "_" not in mostrar_palavra(palavra_sorteada, letras_certas):
+                    venceu = True
 
             else:
-                letras_usadas.append(tentativa)
-
-                if tentativa in sem_acentos(palavra_sorteada):
-                    letras_certas.append(tentativa)
-                    mensagem = "✔ CERTO!"
-
-                    if "_" not in mostrar_palavra(palavra_sorteada, letras_certas):
-                        venceu = True
-
-                else:
-                    erros = erros + 1
-                    mensagem = "✘ Errado..."
+                erros = erros + 1
+                mensagem = "✘ Errado..."
 
 
 ###  FIM DO JOGO ###
 
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
+    limpar_consola()
 
     if venceu:
-        largura = shutil.get_terminal_size().columns 
-        largurametade = int(((largura - 17)/ 4)) 
-        tracos = "⫘⫘" * largurametade
-        print(f"{tracos}│ JOGO DA FORCA │{tracos}")
+        print(titulos("| JOGO DA FORCA │", "⫘⫘"))
         print("")
-        largura = shutil.get_terminal_size().columns 
+        print(titulos("꧁⎝ 𓆩༺✧༻𓆪 ⎠꧂", " "))
+        print(titulos("PARABÉNS", " "))
+        print(titulos(f"A palavra era [{palavra_sorteada}]", " "))
         
-        largurametade = int(((largura - 9)/ 2))
-        tracos = " " * largurametade
-
-        palavraera = f"Ganhaste! A palavra era [{palavra_sorteada}]"
-        largurametade2 = int((largura - len(palavraera)) / 2)
-        tracos2 = " " * largurametade2 
-       
-
-        desenhovitoria = "꧁⎝ 𓆩༺✧༻𓆪 ⎠꧂"
-        largurametade3 = int((largura - len(desenhovitoria)) / 2)
-        tracos3 = " " * largurametade3
-    
-    
-        print(f"{tracos3}꧁⎝ 𓆩༺✧༻𓆪 ⎠꧂{tracos3}")
-
-        
-        print(f"{tracos} PARABÉNS{tracos}") 
-        print(f"{tracos2}{palavraera}{tracos2}")
         
         
     else:
-        largura = shutil.get_terminal_size().columns 
-        largurametade = int((largura - 17) / 4) 
-        tracos = "⫘⫘" * largurametade
-        print(f"{tracos}│ JOGO DA FORCA │{tracos}")
+        print(titulos("| JOGO DA FORCA │", "⫘⫘"))
         print("")
-
-        largurametade4 = int((largura - 8) / 2) 
-        tracos4 = " " * largurametade4
-        largurametade5 = int((largura - 11) / 2)
-        tracos5 = " " * largurametade5
-    
-        palavraera1 = f"A palavra era [{palavra_sorteada}]"
-    
-        largurametade6 = int((largura - len(palavraera1)) / 2)
-        tracos6 = " " * largurametade6
-    
-        print(f"{tracos4}(·•᷄_•᷅ ){tracos4}")
-        print(f"{tracos5}Perdeste...{tracos5}")
-        print(f"{tracos6}{palavraera1}{tracos6}")
-
-
+        print(titulos("(·•᷄_•᷅ )", " "))
+        print(titulos("Perdeste...", " "))
+        print(titulos(f"A palavra era [{palavra_sorteada}]", " "))
+       
     print("")
-    continuar = input("Para jogar novamente, prime Enter ou escreve «Sair» para saíres do jogo: ").lower()
+    continuar = input("Para jogar novamente, prime ENTER ou escreve «Sair» para saíres do jogo: ").lower().strip()
 
-    if continuar == "sair":
+    if continuar == "sair" or continuar == "s":
         break
