@@ -15,7 +15,7 @@ PONTOS_POR_EMPATE = 3
 print("===== PEDRA, PAPEL OU TESOURA =====")
 print(f"Objetivo: ser o primeiro a chegar a {VITORIAS_PARA_GANHAR} vitórias.")
 print("Regras: Pedra vence Tesoura | Tesoura vence Papel | Papel vence Pedra")
-print("Opções: 1 - Pedra | 2 - Papel | 3 - Tesoura | 0 - Desistir")
+print("Opções: Pedra |  Papel | Tesoura | sair - Desistir")
 
 
 #Contadores da partida
