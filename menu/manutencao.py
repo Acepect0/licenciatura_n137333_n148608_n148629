@@ -1,5 +1,5 @@
 from colorama import Fore, Back, Style
-from funcoes_visuais import ecra_cheio, esperar, Tela
+from menu.funcoes_visuais import ecra_cheio, esperar, Tela
 
 def em_manutencao():
     """Ecrã mostrado quando uma funcionalidade ainda não está pronta."""

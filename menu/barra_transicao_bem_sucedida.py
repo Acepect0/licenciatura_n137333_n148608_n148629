@@ -1,5 +1,5 @@
 from colorama import Fore, Back, Style
-from funcoes_visuais import ecra_cheio, Tela, esperar
+from menu.funcoes_visuais import ecra_cheio, Tela, esperar
 
 def ecra_barra_suc():
     msgs = ["A aquecer os motores...",
