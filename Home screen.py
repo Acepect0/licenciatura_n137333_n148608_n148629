@@ -9,10 +9,9 @@ Menu Principal do Projeto Final
 from colorama import Fore, Back, Style, init
 import random
 import shutil
-
+from jogos import main
 
 init(autoreset=True)
-
 
 def menu():
     # A mensagem correspondente á escolha do utilizador
