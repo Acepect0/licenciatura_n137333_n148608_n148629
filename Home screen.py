@@ -8,7 +8,7 @@ Menu Principal do Projeto Final
 
 from colorama import Fore, Back, Style, init
 from jogos import main
-from .funcoes_visuais import ecra_cheio, esperar, Tela
+from menu.funcoes_visuais import ecra_cheio, esperar, Tela
 from menu.manutencao import em_manutencao
 from menu.barra_transicao_bem_sucedida import ecra_barra_suc
 from menu.barra_transicao_mal_sucedida import ecra_barra_mal
