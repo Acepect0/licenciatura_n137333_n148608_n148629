@@ -15,9 +15,5 @@ init(autoreset=True)
 
 def menu():
     # A mensagem correspondente á escolha do utilizador
-    print("Escolha um utilizador existente")
-    print("Crie um novo utilizador.")
-
-    main.jogos()
-
-menu()
+    print("Escolha um utlizador existente")
+    print("Crie um novo utilizador")

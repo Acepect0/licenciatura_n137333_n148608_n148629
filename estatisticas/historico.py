@@ -34,6 +34,7 @@ A classe tem um construtor (__init__) que recebe os parâmetros jogo, jogador, d
 e os armazena como atributos da instância. 
 Além disso, existem métodos get_jogo, get_jogador, get_pontuacao e get_data que 
 retornam os valores dos atributos correspondentes.  
+Uma função "def "é um bloco de código reutilizável que executa uma tarefa específica quando é chamado no programa.
 """
 
 
