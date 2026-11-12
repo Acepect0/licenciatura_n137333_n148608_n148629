@@ -1,4 +1,4 @@
-from funcoes_visuais import Tela, ecra_cheio, esperar
+from menu.funcoes_visuais import Tela, ecra_cheio, esperar
 from colorama import Fore, Back, Style
 
 # ======================================================================
