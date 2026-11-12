@@ -1,41 +1,41 @@
-import os #A biblioteca "os" permite trabalhar com ficheiros e diretórios do sistema operativo
-import unicodedata #A biblioteca "unicodedata" permite trabalhar com caracteres especiais, como acentos e cedilhas
-import random #A biblioteca "random" permite gerar números aleatórios, ou escolher aleatoriamente elementos de uma lista
-import shutil
+import os #Biblioteca "os": permite trabalhar com ficheiros e diretórios do sistema operativo
+import unicodedata #Biblioteca "unicodedata": permite trabalhar com caracteres especiais, como acentos e cedilhas
+import random #Biblioteca "random": permite gerar números aleatórios, ou escolher aleatoriamente elementos de uma lista
+import shutil #Biblioteca "shutil": vamos usar somente para obter a largura da janela do terminal
 
 ###  FUNÇÕES  ###
-#FUNÇÃO QUE SORTEIA UMA PALAVRA ALEATÓRIA DE UM FICHEIRO DE TEXTO
+#FUNÇÃO QUE SORTEIA UMA PALAVRA ALEATÓRIA DO FICHEIRO COM AS PALAVRAS
 def sortear_palavra(): 
     pasta = os.path.dirname(__file__) #Obtém a localização da pasta onde está este ficheiro Python
     caminho_txt = os.path.join(pasta, 'jogodaforca_palavras.txt') #Junta o diretório gerado pela variável anterior com o nome do ficheiro das palavras
     #Desta forma, o programa vai procurar o ficheiro das palavras na mesma pasta onde o programa está a ser corrido, impedindo erros quando o ficheiro é corrido em computadores diferentes, que podem ter diretórios diferentes
     
-    with open(caminho_txt, "r", encoding="utf-8") as ficheiro: #Abre o ficheiro (localização, modo de leitura, forma de interpretação dos caracteres)
-        palavras_com_n = ficheiro.readlines() #Readlines vai ler o ficheiro todo e devolver uma lista em que cada elemento é uma linha do ficheiro, só que imprime com notações de \n no final de cada elemento
+    with open(caminho_txt, "r", encoding="utf-8") as palavrastodas: #Abre o ficheiro (localização, modo de leitura, forma de interpretação dos caracteres) E vai fechá-lo assim que a execução do código desta parte terminar
+        palavras_com_n = palavrastodas.readlines() #Readlines vai ler o ficheiro todo e devolver uma lista em que cada elemento é uma linha do ficheiro, só que imprime com notações de \n no final de cada elemento
 
-    palavras = [] #Cria uma lista vazia para depois guardar as palavras limpas, sem /n e espaços
+    palavras_limpas = [] #Cria uma lista vazia para depois guardar as palavras limpas, sem /n e espaços
     for linha in palavras_com_n:       #Percorre cada linha da lista gerada pelo readlines
         linha = linha.strip()          #Strip vai remover todos os espaços em branco, tabulações (\t) e quebras de linha (\n)
         if linha != "":                #Se, porventura, existir uma linha vazia, vai ignorá-la, não guardando na lista limpa: Se [palavra] for diferente de um elemento vazio, adiciona à lista limpa
-            palavras.append(linha)     #Guarda na lista limpa
+            palavras_limpas.append(linha)     #Guarda na lista limpa
 
-    return random.choice(palavras)     #Escolhe aleatoriamente uma palavra da lista limpa e devolve-a
+    return random.choice(palavras_limpas)     #Escolhe aleatoriamente uma palavra da lista limpa e devolve-a
 
 
 #FUNÇÃO QUE REMOVE OS ACENTOS DE UMA LETRA, PARA COMPARAR ENTRE O QUE O JOGADOR ESCREVE E A PALAVRA SORTEADA
 def sem_acentos(texto): 
  #Para o computador, por exemplo, "e" e "é" são caracteres diferentes, por isso "e" == "é" dá False. Esta função faz com que o jogador possa escrever "e" e acertar no "é" de "bidé", por exemplo
     resultado = "" 
-    for caracter in unicodedata.normalize("NFD", texto): #Separa os acentos das letras, formando por exemplo "é" = "e´"
+    for caracter in unicodedata.normalize("NFD", texto): #NFD: Separa os acentos das letras, formando por exemplo "é" = "e´" 
         if unicodedata.category(caracter) != "Mn": #Se o caracter NÃO for um acento solto (Mn), é uma letra (ou hífen), por isso guarda-se. Os acentos soltos são ignorados
             resultado = resultado + caracter
     return resultado
 
 
 #FUNÇÃO QUE MOSTRA A PALAVRA COM OS ESPAÇOS E LETRAS ACERTADAS
-def mostrar_palavra(palavra, letras_certas): 
+def mostrar_palavra(palavra_sorteada, letras_certas): 
     espacos = ""                                    
-    for letra in palavra:                           #Percorre cada letra da palavra
+    for letra in palavra_sorteada:                  #Percorre cada letra da palavra
         if letra == "-":                            #Se um dos caracteres for um hífen, mostra-o
             espacos = espacos + "- "
         elif sem_acentos(letra) in letras_certas:   #Se uma das letras da palavra estiver na lista de letras_certas, mostra a letra
@@ -51,24 +51,28 @@ if os.name  == "nt": #Se o sistema operativo for Windows, limpa o ecrã com cls
 else:  #Se não for Windows, limpa o ecrã com clear
      os.system("clear")
 
+#Título
 largura = shutil.get_terminal_size().columns
 largurametade = int(((largura - 17) / 4))
 tracos = "⫘⫘" * largurametade
-
 print(f"{tracos}│ JOGO DA FORCA │{tracos}")
+
 print("")
 print("Bem-vindo(a) ao Jogo da Forca!")
 print("")
 print("O objetivo do jogo é acertar a palavra secreta, sabendo apenas o número de letras que ela tem.")
 print("Para isso, podes tentar adivinhar uma letra de cada vez, mas só podes errar até 10 vezes.") 
-print("Se, a meio da rodada, quiseres arriscar numa só a palavra inteira, podes fazê-lo escrevendo o comando @[o teu palpite]. No entanto, se o teu palpite estiver errado, perdes o jogo.")
+print("Se, a meio da ronda, quiseres arriscar numa só a palavra inteira, podes fazê-lo escrevendo o comando @[o teu palpite]. No entanto, se o teu palpite estiver errado, perdes o jogo.")
 print("")
 print("Boa sorte!")
 print("")
+
+#"Botão de COMEÇAR"
 largura = shutil.get_terminal_size().columns
 largurametade = int(((largura - 7) / 2))
 tracos = " " * largurametade
 input(f"{tracos}COMEÇAR{tracos}")
+
 
 ###  PROGRAMA PRINCIPAL  ###
 
@@ -77,11 +81,12 @@ while True: #Mantém o jogo a correr até o jogador decidir sair
 
     #VARIÁVEIS DO JOGO
     MAXIMO_DE_ERROS = 10           #Número máximo de erros 
-    erros = 0                      #Quantos erros o jogador já cometeu
+    erros = -1                     #Quantos erros o jogador já cometeu
     letras_certas = []             #Letras que o jogador já acertou
     letras_usadas = []             #Todas as letras já tentadas (certas e erradas)
     mensagem = ""                  #Aviso a mostrar ao jogador 
     venceu = False                 #=True quando o jogador ganha
+
 
     #CICLO PRINCIPAL DO JOGO
 
@@ -100,11 +105,18 @@ while True: #Mantém o jogo a correr até o jogador decidir sair
         print("╭———————————————╮")
         print(f"|  Erros: {erros + 1}/{MAXIMO_DE_ERROS}  |")
         print("╰———————————————╯")
+        if erros == 10:
+            print("╭———————————————╮")
+            print(f"| Erros: {erros + 1}/{MAXIMO_DE_ERROS}  |")
+            print("╰———————————————╯")
+        
         print(f"A palavra tem {len(palavra_sorteada)} letras.")
         print("")
+       
         print(mostrar_palavra(palavra_sorteada, letras_certas))
         print(f"Letras usadas: {letras_usadas}")
         print(mensagem)  #Aviso da jogada anterior 
+        
         entrada = input("Indica uma letra (ou @ para arriscar): ").lower()
 
         if entrada.startswith("@"): #Se o jogador iniciar com @
@@ -125,7 +137,7 @@ while True: #Mantém o jogo a correr até o jogador decidir sair
 
             # VERIFICAÇÃO DA ENTRADA
 
-            if len(tentativa) != 1 or not tentativa.isalpha():
+            if len(tentativa) != 1 or not tentativa.isalpha(): #isalpha: vê se todos os caractéres são letras do alfabeto, incluindo letras com acento
                 mensagem = "➤ Escreve apenas UMA letra. Não escrevas números, símbolos ou palavras."
 
             elif tentativa in letras_usadas:
