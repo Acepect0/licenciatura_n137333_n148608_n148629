@@ -18,7 +18,7 @@ init(autoreset=True)
 def menu():
     # A mensagem correspondente á escolha do utilizador
     print("----- Utilizadores -----")
-    print("1 - Escolha um utilizador existente")
+    print("1 - Escolha um utilizador existente          " + Fore.YELLOW + "EM MANUTENÇÃO")
     print("2 - Crie um novo utilizador.")
 
     escolha = int(input("Introduza a sua opção: "))
@@ -30,7 +30,7 @@ def menu():
         ecra_barra_mal()
         em_manutencao()
 
-    print(" ----- Menu -----")
+    print(" ----- ARCADE -----")
     print(" 1 - Historico ")
     print(" 2 - Rankings ")
     print(" 3 - Jogos ")
