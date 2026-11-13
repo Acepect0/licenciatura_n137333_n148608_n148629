@@ -2,10 +2,9 @@ from colorama import Fore, Back, Style
 from menu.funcoes_visuais import ecra_cheio, Tela, esperar
 
 def ecra_barra_suc():
-    msgs = ["A aquecer os motores...",
+    msgs = ["A carregar o conteúdo...",
             "A convencer o programador...",
-            "A procurar peças em falta...",
-            "A soprar o pó dos cartuchos..."]
+            "A procurar peças em falta...",]
     with ecra_cheio():
         p = 0.0
         while True:
