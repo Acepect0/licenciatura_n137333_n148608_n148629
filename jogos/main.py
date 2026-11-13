@@ -8,9 +8,9 @@ tracos = "-" * largurametade
 
 def jogos():
     print(Fore.YELLOW + tracos + " JOGOS " + tracos)
-    print(Fore.LIGHTBLUE_EX + "1 - Adivinha o número")
-    print(Fore.GREEN + "2 - Pedra, Papel ou Tesoura")
-    print(Fore.MAGENTA + "3 - Jogo da Forca")
+    print(Fore.LIGHTBLUE_EX + "1 - Adivinha o número    "  + Fore.YELLOW + " EM MANUTENÇÃO")
+    print(Fore.GREEN + "2 - Pedra, Papel ou Tesoura     "  + Fore.YELLOW + " EM MANUTENÇÃO")
+    print(Fore.MAGENTA + "3 - Jogo da Forca             "  + Fore.YELLOW + " EM MANUTENÇÃO")
     print(Fore.RED + "0 - Sair")
 
     opcao = int(input(Fore.RESET + "Introduza a sua opção: "))
