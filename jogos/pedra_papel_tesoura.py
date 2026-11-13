@@ -59,7 +59,6 @@ while jogar_novamente:
 
     # ---- Escolha do computador ----
         escolha_computador = random.choice(["pedra", "papel", "tesoura"])
-
         print(escolha_computador)  # Imprime uma palavra aleatória da lista
 
 
