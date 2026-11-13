@@ -4,7 +4,7 @@ from menu.funcoes_visuais import ecra_cheio, Tela, esperar
 
 def ecra_barra_suc():
     mensagens = [
-        "A dar corda ás pernas...",
+        "A dar corda às pernas...",
         "A convencer o programador...",
         "A procurar peças em falta...",
         "A soprar o pó dos cartuchos...",
