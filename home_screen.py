@@ -15,7 +15,7 @@ from menu.barra_transicao_mal_sucedida import ecra_barra_mal
 
 init(autoreset=True)
 
-def menu():
+def utilizador():
     # A mensagem correspondente á escolha do utilizador
     print("----- Utilizadores -----")
     print("1 - Escolha um utilizador existente")
@@ -27,7 +27,6 @@ def menu():
         ecra_barra_mal()            
         em_manutencao()
 
-
     else:                           #ligar a jogador/criar_jogador.py quando estiver pronto
         ecra_barra_mal()
         em_manutencao()
@@ -36,6 +35,8 @@ def menu():
 def menu():
     """Menu principal. Fica em ciclo até o utilizador escolher Sair."""
     while True:
+
+        utilizador()
 
         print(" ----- Menu -----")
         print(" 1 - Historico ")
