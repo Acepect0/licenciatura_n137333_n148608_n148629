@@ -7,8 +7,7 @@ def ecra_barra_mal():
     # As mensagens que iram aparecer por cima da barra de carregamento
     mensagens = ["A carregar o conteúdo...", 
             "A convencer o programador...",
-            "A procurar peças em falta...",
-            "",]
+            "A procurar peças em falta...",]
 
     # Entra em modo de ecrâ inteiro, de acordo com a documentação escrita no próprio documento
     with ecra_cheio():
