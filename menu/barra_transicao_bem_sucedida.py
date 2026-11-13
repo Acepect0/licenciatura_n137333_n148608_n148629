@@ -1,14 +1,20 @@
 from colorama import Fore, Back, Style
 from menu.funcoes_visuais import ecra_cheio, Tela, esperar
 
+
 def ecra_barra_suc():
-    msgs = ["A carregar o conteúdo...",
-            "A convencer o programador...",
-            "A procurar peças em falta...",]
+    mensagens = [
+        "A dar corda ás pernas...",
+        "A convencer o programador...",
+        "A procurar peças em falta...",
+        "A soprar o pó dos cartuchos...",
+    ]
+
     with ecra_cheio():
         p = 0.0
         while True:
             t = Tela()
+
             presa = p >= 99.9
             if presa:
                 p = 100.0
@@ -23,16 +29,19 @@ def ecra_barra_suc():
             if presa:
                 t.centro(y - 2, "Carregamento bem sucedido", Fore.GREEN + Style.BRIGHT)
             else:
-                t.centro(y - 2, msgs[int(p // 12) % len(msgs)], Fore.YELLOW)
+                t.centro(y - 2, mensagens[int(p // 12) % len(mensagens)], Fore.YELLOW)
 
             t.pôr(x0 - 1, y - 1, "┌" + "─" * largura + "┐", Fore.WHITE)
             t.pôr(x0 - 1, y, "│", Fore.WHITE)
             t.pôr(x0 + largura, y, "│", Fore.WHITE)
             t.pôr(x0 - 1, y + 1, "└" + "─" * largura + "┘", Fore.WHITE)
+
             t.pôr(x0, y, "█" * cheio, Fore.GREEN)
             t.pôr(x0 + cheio, y, "░" * (largura - cheio), Fore.GREEN + Style.DIM)
+
             t.centro(y + 3, f"{int(p)}%", Fore.WHITE + Style.BRIGHT)
             t.centro(t.l - 2, "Prima uma tecla para voltar", Style.DIM + Fore.WHITE)
+
             t.mostrar()
             if esperar(0.03):
                 break
