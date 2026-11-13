@@ -1,22 +1,20 @@
 # Pedra, Papel ou Tesoura
 # Regra de fim de partida: ganha quem chegar primeiro a 3 vitórias.
 
-# Pedra, Papel ou Tesoura
-# Regra de fim de partida: ganha quem chegar primeiro a 3 vitórias.
-
 import random  # necessário para o computador escolher ao acaso
-
+from colorama import Fore, Back, Style, init
 
 
 VITORIAS_PARA_GANHAR = 3   # constante (nome em maiúsculas)
 PONTOS_POR_VITORIA = 10
 PONTOS_POR_EMPATE = 3
 
-print("===== PEDRA, PAPEL OU TESOURA =====")
-print(f"Objetivo: ser o primeiro a chegar a {VITORIAS_PARA_GANHAR} vitórias.")
-print("Regras: Pedra vence Tesoura | Tesoura vence Papel | Papel vence Pedra")
-print("Opções: Pedra |  Papel | Tesoura | sair - Desistir")
+init(autoreset=True)  # Inicializar o colorama
 
+print(f"{Fore.CYAN}===== PEDRA, PAPEL OU TESOURA =====")
+print(f"{Fore.WHITE}Objetivo: ser o primeiro a chegar a {VITORIAS_PARA_GANHAR} vitórias.")
+print(f"{Fore.WHITE}Regras: Pedra vence Tesoura | Tesoura vence Papel | Papel vence Pedra")
+print(f"{Fore.WHITE}Opções: Pedra | Papel | Tesoura | Desistir")
 
 #Contadores da partida
 vitorias_jogador = 0
@@ -57,15 +55,12 @@ while jogar_novamente:
             print("Opção inválida. Escreva pedra, papel ou tesoura.")
             ronda = ronda - 1
             continue
+        
 
     # ---- Escolha do computador ----
-        numero = random.randint(1, 3)
-        if numero == 1:
-            escolha_computador = "pedra"
-        elif numero == 2:
-            escolha_computador = "papel"
-        else:
-            escolha_computador = "tesoura"
+        escolha_computador = random.choice(["pedra", "papel", "tesoura"])
+        print(escolha_computador)  # Imprime uma palavra aleatória da lista
+
 
         print(f"Você: {escolha_jogador}  |  Computador: {escolha_computador}")
 

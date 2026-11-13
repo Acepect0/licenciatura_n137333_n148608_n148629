@@ -21,7 +21,7 @@ def ecra_barra_mal():
         #Loop da Barra (em que cada ciclo é um frame)
         while True:
 
-            # Tela Limpa para cada fotograma
+            # Ecrã Limpa para cada fotograma
             t = Tela()
 
             # Ponto em que a barra irá ficar "presa"
