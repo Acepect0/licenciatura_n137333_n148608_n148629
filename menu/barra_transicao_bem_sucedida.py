@@ -73,7 +73,7 @@ def ecra_barra_suc():
             tela.mostrar()
 
             # Pausa entre fotogramas (a tecla premida, se houver, é ignorada)
-            esperar(0.03)
+            esperar(0.025)
 
             # Passados 2 segundos depois da barra ter terminado de carregar, sai automaticamente
             if inicio_fim is not None and time.monotonic() - inicio_fim >= 2:

@@ -78,7 +78,7 @@ def ecra_barra_mal():
             t.mostrar()
             
             # Tempo de espera entre cada frame
-            esperar(0.03)
+            esperar(0.025)
 
             # Assim que aparece a mensagem de erro, passados 2 segundos avança para outra fase
             if inicio_erro is not None and time.monotonic() - inicio_erro >= 2:

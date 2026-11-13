@@ -19,10 +19,8 @@ init(autoreset=True)
 def utilizador():
     # A mensagem correspondente á escolha do utilizador
     print("----- Utilizadores -----")
-    print(
-        "1 - Escolha um utilizador existente          " + Fore.YELLOW + "EM MANUTENÇÃO"
-    )
-    print("2 - Crie um novo utilizador.")
+    print("1 - Escolha um utilizador existente          " + Fore.YELLOW + "EM MANUTENÇÃO")
+    print("2 - Crie um novo utilizador.         " + Fore.RED + "Apenas TEMPORÁRIO")
 
     escolha = int(input("Introduza a sua opção: "))
 
@@ -31,26 +29,29 @@ def utilizador():
         em_manutencao()
 
     else:  # ligar a jogador/criar_jogador.py quando estiver pronto
-        ecra_barra_mal()
-        em_manutencao()
+        ecra_barra_suc()
+        nome = input("Insira o seu nome: ")
+        return nome
 
 
 def menu():
     """Menu principal. Fica em ciclo até o utilizador escolher Sair."""
 
     statusUtilizador = False
+    nome = ""
     while True:
 
         if statusUtilizador == False:
-            utilizador()
+            nome = utilizador()
             statusUtilizador = True
 
         print(" ----- ARCADE -----")
-        print(" 1 - Historico ")
-        print(" 2 - Rankings ")
-        print(" 3 - Jogos ")
-        print(" 4 - Gerir Perfil")
-        print(" 5 - Mudar de Jogador ")
+        print(f" Olá {nome}")
+        print(" 1 - Historico           " + Fore.YELLOW + " EM MANUTENÇÃO")
+        print(" 2 - Rankings            " + Fore.YELLOW + " EM MANUTENÇÃO")
+        print(" 3 - Jogos               ")
+        print(" 4 - Gerir Perfil        " + Fore.YELLOW + " EM MANUTENÇÃO")
+        print(" 5 - Mudar de Jogador    " + Fore.YELLOW + " EM MANUTENÇÃO")
         print(" 6 - Sair ")
 
         opcao = int(input("Selecione a opção do Menu que pretende: "))
